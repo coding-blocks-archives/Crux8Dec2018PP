@@ -2,6 +2,8 @@ package L5_Dec15;
 
 import java.util.ArrayList;
 
+import javax.sound.midi.Synthesizer;
+
 /**
  * @author Garima Chhikara
  * @email garima.chhikara@codingblocks.com
@@ -44,6 +46,12 @@ public class ArrayListDemo {
 		list.remove(1);
 		System.out.println(list);
 
+		// display
+		System.out.println(list);
+
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));
+		}
 	}
 
 }

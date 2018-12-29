@@ -36,18 +36,18 @@ public class PersonClient {
 		p4.age = 20;
 		p4.name = "B";
 
-		// Test1(p3, p4);
+		Test1(p3, p4);
 		System.out.println(p3.age + " " + p3.name);
 		System.out.println(p4.age + " " + p4.name);
 
-		// Test2(p3, p4);
+		Test2(p3, p4);
 		System.out.println(p3.age + " " + p3.name);
 		System.out.println(p4.age + " " + p4.name);
 
 		int myAge = 30;
 		String myName = "C";
 
-		// Test3(p3, p4.age, p4.name, myAge, myName);
+		Test3(p3, p4.age, p4.name, myAge, myName);
 		System.out.println(p3.age + " " + p3.name);
 		System.out.println(p4.age + " " + p4.name);
 		System.out.println(myAge + " " + myName);
@@ -55,7 +55,9 @@ public class PersonClient {
 		p3.introduceYourself();
 		p3.sayHi("ram");
 
-		
+		Person p6 = new Person();
+		p6.introduceYourself();
+
 	}
 
 	public static void Test3(Person p, int age, String name, int myAge, String myName) {

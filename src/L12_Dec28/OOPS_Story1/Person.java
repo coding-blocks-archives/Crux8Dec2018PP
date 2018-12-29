@@ -11,12 +11,25 @@ package L12_Dec28.OOPS_Story1;
 public class Person {
 
 	// data members
-	String name;
-	int age;
+	String name = "D";
+	int age = 90;
+
+	// constructor
+	public Person(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+
+	// default constructor
+	public Person() {
+		this.name = "p";
+		this.age = 900;
+	}
 
 	// fxn
 	public void introduceYourself() {
 		System.out.println(this.name + " is " + this.age + " years old.");
+
 	}
 
 	public void sayHi(String name) {

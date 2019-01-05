@@ -74,9 +74,10 @@ public class StackUsingQueuePushEff {
 	}
 
 	public void display() throws Exception {
-		System.out.println("-------------");
+		System.out.println("--------------");
 		displayReverse(0);
-		System.out.println("-------------");
+		System.out.println(".");
+		System.out.println("--------------");
 	}
 
 	private void displayReverse(int count) throws Exception {
@@ -90,7 +91,7 @@ public class StackUsingQueuePushEff {
 
 		displayReverse(count + 1);
 
-		System.out.println(temp);
+		System.out.print(temp + " ");
 	}
 
 }

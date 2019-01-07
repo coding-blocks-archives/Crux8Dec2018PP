@@ -443,6 +443,19 @@ public class LinkedList {
 		return slow.data;
 	}
 
+	private Node midNode() {
+
+		Node slow = this.head;
+		Node fast = this.head;
+
+		while (fast.next != null && fast.next.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+
+		return slow;
+	}
+
 	public int kthFromLast(int k) {
 
 		Node slow = this.head;
@@ -487,4 +500,142 @@ public class LinkedList {
 		this.size = prev.size;
 
 	}
+
+	public LinkedList mergeTwoSortedLL(LinkedList other) {
+
+		LinkedList sorted = new LinkedList();
+
+		Node temp1 = this.head;
+		Node temp2 = other.head;
+
+		while (temp1 != null && temp2 != null) {
+
+			if (temp1.data < temp2.data) {
+				sorted.addLast(temp1.data);
+				temp1 = temp1.next;
+			} else {
+				sorted.addLast(temp2.data);
+				temp2 = temp2.next;
+			}
+
+		}
+
+		if (temp1 == null) {
+			while (temp2 != null) {
+				sorted.addLast(temp2.data);
+				temp2 = temp2.next;
+			}
+		}
+
+		if (temp2 == null) {
+			while (temp1 != null) {
+				sorted.addLast(temp1.data);
+				temp1 = temp1.next;
+			}
+		}
+
+		return sorted;
+
+	}
+
+	public void mergeSort() {
+
+		if (this.size == 1) {
+			return;
+		}
+
+		Node midn = midNode();
+		Node midnnext = midn.next;
+
+		LinkedList fh = new LinkedList();
+		fh.head = this.head;
+		fh.tail = midn;
+		fh.tail.next = null;
+		fh.size = (this.size + 1) / 2;
+
+		LinkedList sh = new LinkedList();
+		sh.head = midnnext;
+		sh.tail = this.tail;
+		sh.tail.next = null;
+		sh.size = this.size / 2;
+
+		// smaller problems sort
+		fh.mergeSort();
+		sh.mergeSort();
+
+		// self work
+		LinkedList merged = fh.mergeTwoSortedLL(sh);
+
+		this.head = merged.head;
+		this.tail = merged.tail;
+		this.size = merged.size;
+
+	}
+
+	public void createDummyLL() {
+
+		Node n1 = new Node();
+		n1.data = 10;
+		Node n2 = new Node();
+		n2.data = 20;
+		Node n3 = new Node();
+		n3.data = 30;
+		Node n4 = new Node();
+		n4.data = 40;
+		Node n5 = new Node();
+		n5.data = 50;
+		Node n6 = new Node();
+		n6.data = 60;
+		Node n7 = new Node();
+		n7.data = 70;
+		Node n8 = new Node();
+		n8.data = 80;
+
+		n1.next = n2;
+		n2.next = n3;
+		n3.next = n4;
+		n4.next = n5;
+		n5.next = n6;
+		n6.next = n7;
+		n7.next = n8;
+		n8.next = n3;
+
+		this.head = n1;
+		this.tail = null;
+		// this.size = 6;
+	}
+
+	public void detectRemoveLoop() {
+
+		Node slow = this.head;
+		Node fast = this.head;
+
+		while (fast != null && fast.next != null) {
+
+			slow = slow.next;
+			fast = fast.next.next;
+
+			if (slow == fast)
+				break;
+
+		}
+
+		if (slow == fast) {
+
+			Node start = this.head;
+			Node loop = slow;
+
+			while (loop.next != start.next) {
+				start = start.next;
+				loop = loop.next;
+			}
+
+			loop.next = null;
+
+		} else {
+			System.out.println("No loop");
+		}
+
+	}
+
 }

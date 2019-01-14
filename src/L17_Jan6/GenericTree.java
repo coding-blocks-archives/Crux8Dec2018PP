@@ -330,4 +330,69 @@ public class GenericTree {
 		}
 	}
 
+	private class HeapMover {
+		int size = 0;
+		int max = Integer.MIN_VALUE;
+		int ht = 0;
+		boolean find;
+
+		Node pred;
+		Node succ;
+		Node jl;
+
+	}
+
+	public void multiSolver(int item) {
+
+		HeapMover mover = new HeapMover();
+
+		multiSolver(this.root, item, 0, mover);
+
+		System.out.println("Size :" + mover.size);
+		System.out.println("Max :" + mover.max);
+		System.out.println("Find :" + mover.find);
+		System.out.println("Ht :" + mover.ht);
+		System.out.println("Pred: " + (mover.pred == null ? null : mover.pred.data));
+		System.out.println("Succ :" + (mover.succ == null ? null : mover.succ.data));
+		System.out.println("JL :" + (mover.jl == null ? null : mover.jl.data));
+
+	}
+
+	private void multiSolver(Node node, int item, int level, HeapMover mover) {
+
+		// values update
+		mover.size++;
+
+		if (node.data > mover.max) {
+			mover.max = node.data;
+		}
+
+		if (level > mover.ht) {
+			mover.ht = level;
+		}
+
+		if (mover.find == true && mover.succ == null) {
+			mover.succ = node;
+		}
+
+		if (node.data == item) {
+			mover.find = true;
+		}
+
+		if (mover.find == false) {
+			mover.pred = node;
+		}
+
+		if (node.data > item) {
+			if (mover.jl == null || node.data < mover.jl.data) {
+				mover.jl = node;
+			}
+		}
+
+		for (Node child : node.children) {
+			multiSolver(child, item, level + 1, mover);
+		}
+
+	}
+
 }

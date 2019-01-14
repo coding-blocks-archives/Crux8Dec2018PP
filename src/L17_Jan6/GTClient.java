@@ -17,17 +17,19 @@ public class GTClient {
 		gt.display();
 		System.out.println(gt.size());
 		System.out.println(gt.max());
-		System.out.println(gt.find(500));
+		System.out.println(gt.find(50));
 		System.out.println(gt.ht());
 		// gt.mirror();
 		gt.display();
-		gt.preorder();
-		gt.postorder();
-		gt.levelOrder();
-		gt.levelOrderLW();
-		gt.levelOrderZZ();
+		// gt.preorder();
+		// gt.postorder();
+		// gt.levelOrder();
+		// gt.levelOrderLW();
+		// gt.levelOrderZZ();
+		//
+		// gt.printAtLevel(2);
 
-		gt.printAtLevel(2);
+		gt.multiSolver(80);
 	}
 
 }

@@ -16,7 +16,9 @@ public class BinaryTreeClient {
 	// 70 false true 80 false false true 90 false false
 	public static void main(String[] args) {
 
-		BinaryTree bt = new BinaryTree();
+		int[] pre = { 10, 20, 40, 30, 50, 60, 70 };
+		int[] in = { 20, 40, 10, 60, 50, 70, 30 };
+		BinaryTree bt = new BinaryTree(pre, in);
 		bt.display();
 		System.out.println(bt.ht());
 		System.out.println(bt.find(20));
@@ -26,7 +28,10 @@ public class BinaryTreeClient {
 		System.out.println(bt.diameter2());
 		System.out.println(bt.isBalanced());
 		System.out.println(bt.isBalanced2());
+		bt.preorder();
+		bt.preorderI();
 
+		
 	}
 
 }

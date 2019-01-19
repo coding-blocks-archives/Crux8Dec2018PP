@@ -1,6 +1,8 @@
 package L19_Jan13;
 
+import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
  * @author Garima Chhikara
@@ -62,6 +64,38 @@ public class BinaryTree {
 
 		return nn;
 
+	}
+
+	public BinaryTree(int[] pre, int[] in) {
+
+		this.root = construct(pre, 0, pre.length - 1, in, 0, in.length - 1);
+	}
+
+	private Node construct(int[] pre, int plo, int phi, int[] in, int ilo, int ihi) {
+
+		if (ilo > ihi || plo > phi) {
+			return null;
+		}
+
+		Node nn = new Node();
+		nn.data = pre[plo];
+
+		int si = -1;
+
+		// search
+		for (int i = ilo; i <= ihi; i++) {
+			if (pre[plo] == in[i]) {
+				si = i;
+				break;
+			}
+		}
+
+		int nel = si - ilo;
+
+		nn.left = construct(pre, plo + 1, plo + nel, in, ilo, si - 1);
+		nn.right = construct(pre, plo + nel + 1, phi, in, si + 1, ihi);
+
+		return nn;
 	}
 
 	public void display() {
@@ -276,6 +310,78 @@ public class BinaryTree {
 		}
 
 		return np;
+	}
+
+	public void preorder() {
+		preorder(this.root);
+		System.out.println();
+	}
+
+	private void preorder(Node node) {
+
+		if (node == null) {
+			return;
+		}
+
+		// node
+		System.out.print(node.data + " ");
+
+		// left
+		preorder(node.left);
+
+		// right
+		preorder(node.right);
+
+	}
+
+	private class Pair {
+
+		Node node;
+		boolean sd;
+		boolean ld;
+		boolean rd;
+	}
+
+	public void preorderI() {
+
+		LinkedList<Pair> stack = new LinkedList<>();
+
+		Pair sp = new Pair();
+		sp.node = this.root;
+
+		stack.addFirst(sp);
+
+		while (!stack.isEmpty()) {
+
+			Pair tp = stack.getFirst();
+
+			if (tp.node == null) {
+				stack.removeFirst();
+				continue;
+			}
+
+			if (tp.sd == false) {
+				System.out.print(tp.node.data + " ");
+				tp.sd = true;
+			} else if (tp.ld == false) {
+
+				Pair np = new Pair();
+				np.node = tp.node.left;
+				stack.addFirst(np);
+
+				tp.ld = true;
+			} else if (tp.rd == false) {
+				Pair np = new Pair();
+				np.node = tp.node.right;
+				stack.addFirst(np);
+
+				tp.rd = true;
+			} else {
+				stack.removeFirst();
+			}
+
+		}
+
 	}
 
 }

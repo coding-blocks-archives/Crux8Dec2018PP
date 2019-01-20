@@ -16,8 +16,12 @@ public class BinaryTreeClient {
 	// 70 false true 80 false false true 90 false false
 	public static void main(String[] args) {
 
-		int[] pre = { 10, 20, 40, 30, 50, 60, 70 };
-		int[] in = { 20, 40, 10, 60, 50, 70, 30 };
+		// int[] pre = { 10, 20, 40, 30, 50, 60, 70 };
+		// int[] in = { 20, 40, 10, 60, 50, 70, 30 };
+
+		int[] in = { 3, 5, 7, 10, 16, 20, 25 };
+		int[] pre = { 10, 5, 3, 7, 20, 16, 25 };
+
 		BinaryTree bt = new BinaryTree(pre, in);
 		bt.display();
 		System.out.println(bt.ht());
@@ -31,7 +35,8 @@ public class BinaryTreeClient {
 		bt.preorder();
 		bt.preorderI();
 
-		
+		System.out.println(bt.isBST());
+
 	}
 
 }

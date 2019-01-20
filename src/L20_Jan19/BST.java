@@ -240,4 +240,62 @@ public class BST {
 
 	}
 
+	public void remove(int item) {
+		remove(this.root, null, item);
+	}
+
+	public void remove(Node node, Node parent, int item) {
+
+		if (node == null) {
+			return;
+		}
+
+		if (item > node.data) {
+			remove(node.right, node, item);
+		} else if (item < node.data) {
+			remove(node.left, node, item);
+		} else {
+
+			if (node.left == null && node.right == null) {
+
+				if (parent.left == node) {
+					parent.left = null;
+				} else {
+					parent.right = null;
+				}
+
+			}
+
+			else if (node.left != null && node.right == null) {
+
+				if (parent.left == node) {
+					parent.left = node.left;
+				} else {
+					parent.right = node.left;
+				}
+
+			}
+
+			else if (node.left == null && node.right != null) {
+
+				if (parent.left == node) {
+					parent.left = node.right;
+				} else {
+					parent.right = node.right;
+				}
+
+			}
+
+			else {
+
+				int temp = max(node.left);
+				remove(node.left, node, temp);
+				node.data = temp;
+
+			}
+
+		}
+
+	}
+
 }

@@ -24,6 +24,8 @@ public class BSTClient {
 		bst.display();
 		bst.add(35);
 		bst.display();
+		bst.remove(20);
+		bst.display();
 	}
 
 }

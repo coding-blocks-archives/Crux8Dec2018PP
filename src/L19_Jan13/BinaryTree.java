@@ -1,5 +1,9 @@
 package L19_Jan13;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Stack;
@@ -418,6 +422,70 @@ public class BinaryTree {
 		}
 
 		return sp;
+
+	}
+
+	private class VOPair {
+
+		Node node;
+		int hlevel;
+		int vlevel;
+
+		@Override
+		public String toString() {
+			return this.node.data + "";
+		}
+
+	}
+
+	public void verticalOrderDisplay() {
+
+		HashMap<Integer, ArrayList<VOPair>> map = new HashMap<>();
+
+		verticalOrderDisplay(this.root, map, 0, 0);
+
+		ArrayList<Integer> keys = new ArrayList<>(map.keySet());
+
+		Collections.sort(keys);
+
+		for (Integer key : keys) {
+			ArrayList<VOPair> list = map.get(key);
+
+			Collections.sort(list, new VOPairComparator());
+
+			System.out.println(key + " -> " + list);
+		}
+
+	}
+
+	private void verticalOrderDisplay(Node node, HashMap<Integer, ArrayList<VOPair>> map, int hl, int vl) {
+
+		if (node == null) {
+			return;
+		}
+
+		VOPair np = new VOPair();
+		np.node = node;
+		np.hlevel = hl;
+		np.vlevel = vl;
+
+		if (!map.containsKey(vl)) {
+			map.put(vl, new ArrayList<>());
+		}
+
+		map.get(vl).add(np);
+
+		verticalOrderDisplay(node.left, map, hl + 1, vl - 1);
+		verticalOrderDisplay(node.right, map, hl + 1, vl + 1);
+
+	}
+
+	private class VOPairComparator implements Comparator<VOPair> {
+
+		@Override
+		public int compare(VOPair o1, VOPair o2) {
+			return o1.hlevel - o2.hlevel;
+		}
 
 	}
 

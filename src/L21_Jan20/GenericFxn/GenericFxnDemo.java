@@ -36,7 +36,7 @@ public class GenericFxnDemo {
 		display(cars);
 		bubbleSort(cars, new CarColorComparator());
 		display(cars);
-
+		
 	}
 
 	public static <T> void display(T[] arr) {

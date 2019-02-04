@@ -36,15 +36,25 @@ public class DP {
 		// System.out.println(EditDistanceBU("saturdaybchxbvjkdsh,njkd",
 		// "sundaycbkjsdhbvkuehvui"));
 
-		int[] arr = new int[5];
+		int[] arr = new int[500];
 
 		for (int i = 0; i < arr.length; i++)
 			arr[i] = i + 1;
 
 		// int[] arr = { 1, 2, 3, 4, 5 };
-		System.out.println(MCM(arr, 0, arr.length - 1, new int[arr.length][arr.length]));
-		System.out.println(MCMBU(arr));
+		// System.out.println(MCM(arr, 0, arr.length - 1, new
+		// int[arr.length][arr.length]));
+		// System.out.println(MCMBU(arr));
 
+		// int[] arr = { 2, 3, 5, 1, 4 };
+
+		System.out.println(WineProblemTD(arr, 0, arr.length - 1, new int[arr.length][arr.length]));
+		System.out.println(WineProblemBU(arr));
+
+		int[] weight = { 1, 3, 4, 5 };
+		int[] price = { 1, 4, 5, 7 };
+		int cap = 7;
+		System.out.println(KnapsackTD(weight, price, cap, 0, new int[weight.length + 1][cap + 1]));
 		long end = System.currentTimeMillis();
 		System.out.println(end - start);
 
@@ -465,6 +475,101 @@ public class DP {
 		}
 
 		return strg[0][n - 1];
+
+	}
+
+	public static int WineProblem(int[] arr, int si, int ei, int yr) {
+
+		if (si == ei) {
+			return arr[si] * yr;
+		}
+
+		int sc = WineProblem(arr, si + 1, ei, yr + 1) + arr[si] * yr;
+		int lc = WineProblem(arr, si, ei - 1, yr + 1) + arr[ei] * yr;
+
+		int ans = Math.max(sc, lc);
+
+		return ans;
+
+	}
+
+	public static int WineProblemTD(int[] arr, int si, int ei, int[][] strg) {
+
+		int yr = arr.length - ei + si;
+
+		if (si == ei) {
+			return arr[si] * yr;
+		}
+
+		if (strg[si][ei] != 0) {
+			return strg[si][ei];
+		}
+
+		int sc = WineProblemTD(arr, si + 1, ei, strg) + arr[si] * yr;
+		int lc = WineProblemTD(arr, si, ei - 1, strg) + arr[ei] * yr;
+
+		int ans = Math.max(sc, lc);
+
+		strg[si][ei] = ans;
+
+		return ans;
+
+	}
+
+	public static int WineProblemBU(int[] arr) {
+
+		int n = arr.length;
+
+		int[][] strg = new int[n][n];
+
+		for (int slide = 0; slide <= n - 1; slide++) {
+
+			for (int si = 0; si <= n - slide - 1; si++) {
+
+				int ei = si + slide;
+				int yr = n - ei + si;
+
+				if (si == ei) {
+					strg[si][ei] = arr[si] * yr;
+				} else {
+					int sc = strg[si + 1][ei] + arr[si] * yr;
+					int lc = strg[si][ei - 1] + arr[ei] * yr;
+
+					int ans = Math.max(sc, lc);
+
+					strg[si][ei] = ans;
+				}
+
+			}
+
+		}
+
+		return strg[0][n - 1];
+	}
+
+	public static int KnapsackTD(int[] weight, int[] price, int cap, int vidx, int[][] strg) {
+
+		if (vidx == weight.length) {
+			return 0;
+		}
+
+		if (strg[vidx][cap] != 0) {
+			return strg[vidx][cap];
+		}
+
+		int exclude = KnapsackTD(weight, price, cap, vidx + 1, strg);
+
+		int include = 0;
+
+		if (cap >= weight[vidx]) {
+			include = KnapsackTD(weight, price, cap - weight[vidx], vidx + 1, strg) + price[vidx];
+		}
+
+		int ans = Math.max(exclude, include);
+
+		strg[vidx][cap] = ans;
+
+		return ans;
 
 	}
 

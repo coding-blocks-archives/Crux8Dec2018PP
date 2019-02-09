@@ -39,8 +39,10 @@ public class BinaryTreeClient {
 		bt.preorderI();
 
 		System.out.println(bt.isBST());
-		
+
 		bt.verticalOrderDisplay();
+
+		bt.kFar(2, 20);
 
 	}
 

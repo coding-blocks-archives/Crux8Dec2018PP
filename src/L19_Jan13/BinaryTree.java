@@ -489,4 +489,64 @@ public class BinaryTree {
 
 	}
 
+	public void kFar(int k, int data) {
+		kFar(this.root, k, data);
+	}
+
+	private int kFar(Node node, int k, int data) {
+
+		if (node == null) {
+			return -1;
+		}
+
+		if (node.data == data) {
+			kDown(node, k, 0);
+			return 0;
+		}
+
+		int ld = kFar(node.left, k, data);
+
+		if (ld != -1) {
+
+			if (ld + 1 == k) {
+				System.out.println(node.data);
+			}
+
+			kDown(node.right, k - ld - 2, 0);
+
+			return ld + 1;
+		}
+
+		int rd = kFar(node.right, k, data);
+		if (rd != -1) {
+
+			if (rd + 1 == k) {
+				System.out.println(node.data);
+			}
+
+			kDown(node.left, k - rd - 2, 0);
+
+			return rd + 1;
+		}
+
+		return -1;
+
+	}
+
+	private void kDown(Node node, int k, int count) {
+
+		if (node == null) {
+			return;
+		}
+
+		if (k == count) {
+			System.out.println(node.data);
+			return;
+		}
+
+		kDown(node.left, k, count + 1);
+		kDown(node.right, k, count + 1);
+
+	}
+
 }
